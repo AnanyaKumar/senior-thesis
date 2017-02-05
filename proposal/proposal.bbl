@@ -1,0 +1,51 @@
+\begin{thebibliography}{AHPV05}
+
+\bibitem[AHPV05]{survey}
+Pankaj~K. Agarwal, Sariel Har-Peled, and Kasturi~R. Varadarajan.
+\newblock Geometric approximation via coresets.
+\newblock In {\em COMBINATORIAL AND COMPUTATIONAL GEOMETRY, MSRI}, pages 1--30.
+  University Press, 2005.
+
+\bibitem[BHPR16]{blum-peled}
+Avrim Blum, Sariel Har-Peled, and Benjamin Raichel.
+\newblock Sparse approximation via generating point sets.
+\newblock In {\em Proceedings of the Twenty-Seventh Annual ACM-SIAM Symposium
+  on Discrete Algorithms}, pages 548--557, 2016.
+
+\bibitem[BLK15]{icml2015_bachem15}
+Olivier Bachem, Mario Lucic, and Andreas Krause.
+\newblock Coresets for nonparametric estimation - the case of dp-means.
+\newblock In David Blei and Francis Bach, editors, {\em Proceedings of the 32nd
+  International Conference on Machine Learning (ICML-15)}, pages 209--217. JMLR
+  Workshop and Conference Proceedings, 2015.
+
+\bibitem[Cla93]{Clarkson1993}
+Kenneth~L. Clarkson.
+\newblock {\em Algorithms for polytope covering and approximation}, pages
+  246--252.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 1993.
+
+\bibitem[FSS13]{Feldman}
+Dan Feldman, Melanie Schmidt, and Christian Sohler.
+\newblock Turning big data into tiny data: Constant-size coresets for k-means,
+  pca and projective clustering.
+\newblock In {\em Proceedings of the Twenty-Fourth Annual ACM-SIAM Symposium on
+  Discrete Algorithms}, SODA '13, pages 1434--1453, Philadelphia, PA, USA,
+  2013. Society for Industrial and Applied Mathematics.
+
+\bibitem[HS08a]{adaptivesampling}
+John Hershberger and Subhash Suri.
+\newblock Adaptive sampling for geometric problems over data streams.
+\newblock {\em Comput. Geom. Theory Appl.}, 39(3):191--208, April 2008.
+
+\bibitem[HS08b]{Hershberger2008}
+John Hershberger and Subhash Suri.
+\newblock {\em Simplified Planar Coresets for Data Streams}, pages 5--16.
+\newblock Springer Berlin Heidelberg, Berlin, Heidelberg, 2008.
+
+\bibitem[TKC05]{cvms}
+Ivor~W. Tsang, James~T. Kwok, and Pak-Ming Cheung.
+\newblock Core vector machines: Fast svm training on very large data sets.
+\newblock {\em J. Mach. Learn. Res.}, 6:363--392, December 2005.
+
+\end{thebibliography}
