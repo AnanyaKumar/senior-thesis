@@ -1,0 +1,74 @@
+% LaTeX Article Template - using defaults
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\usepackage[final]{showkeys}
+
+
+% Set left margin - The default is 1 inch, so the following 
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following 
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the text - What is left will be the bottom margin.
+% In this case, bottom margin is 11in - 0.75in - 9.5in = 0.75in
+\setlength{\textheight}{8in}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+
+% Set the beginning of a LaTeX document
+\begin{document}
+
+\title{Approximate Convex Hulls}         % Enter your title between curly braces
+\author{Ananya Kumar}        % Enter your name between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+\section{Problem}
+
+Given a set of 2-dimensional points $P$, an $\epsilon$-approximate convex hull is a set $S$ such that every point in $P$ is within Euclidean distance $\epsilon$ from some point in $S$. Let OPT$(P, \epsilon)$ be the size of a smallest $\epsilon$-approximate convex hull of $P$. There is a very simple polynomial time algorithm that can find a smallest $\epsilon$-approximate convex hull. However, we are interested in streaming algorithms for this problem.
+
+Order the points in $P$ from $1$ to $n$. Let $P_{i:j}$ denote all points between indices $i$ and $j$, inclusive of $i$ and $j$. Let MAX-OPT$(P, \epsilon)$ be $\max_{1 \leq i \leq n} $OPT$(P(1,i), \epsilon)$. There has been a lot of past work on the streaming approximate convex hull problem, but we want a streaming algorithm that is competitive with MAX-OPT. Note that we cannot get a streaming algorithm that is always competitive with OPT, because the optimal approximate convex hull for the first half of the points could be significantly larger than the optimal approximate convex hull for the whole set. 
+
+\section{Goals}
+
+This problem is very difficult, and we have come up with a bunch of ideas that did not seem to work in general. So we look at a few easier goals for now.
+
+\begin{enumerate}
+\item Can we solve the problem if the points come in random order? This is a reasonable assumption, because if the points were generated i.i.d. with respect to \emph{any generative process} then they would effectively come in random order.
+
+\item Can we solve this problem in the case that $P$ has no interior points? An interior point $p \in P$ is inside the convex hull of $P \setminus \{p\}$.
+
+\item Can we solve the problem when MAX-OPT is a small specified number? For example, the case where MAX-OPT is 2?
+
+\end{enumerate}
+
+In pursuit of these goals, we propose 2 algorithms and sketch out correctness arguments for them. We then discuss ideas for solving the more general cases. The main results are:
+
+\begin{enumerate}
+
+\item We conjecture algorithm 1 that uses expected space $O($MAX-OPT$\cdot \log{n})$. We give intuition for a correctness argument.
+
+\item We conjecture algorithm 2 that, assuming there are no interior points, and the points come in clockwise (or anti-clockwise) order uses space $O($MAX-OPT$)$ space. We give a sketch of a correctness argument.
+
+\end{enumerate}
+
+\end{document}
