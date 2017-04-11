@@ -1,0 +1,187 @@
+% LaTeX Article Template - using defaults
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pseudocode}
+
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\usepackage[final]{showkeys}
+
+
+% Set left margin - The default is 1 inch, so the following 
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following 
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+% Set height of the text - What is left will be the bottom margin.
+% In this case, bottom margin is 11in - 0.75in - 9.5in = 0.75in
+\setlength{\textheight}{8in}
+
+\setlength\parindent{0pt}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+% Set the beginning of a LaTeX document
+\begin{document}
+
+\title{$(\epsilon, \delta)$ hull algorithms}         % Enter your title between curly braces
+\date{\today}          % Enter your date or \today between curly braces
+\maketitle
+
+Suppose we are given a point set $P \in \mathbb{R}^d$ \textbf{with diameter $\leq 1$}. An $\epsilon$-approximate convex hull is a set $S$ such that every point in $P$ is within Euclidean distance $\epsilon$ from some point in $S$. We can think of $\epsilon$-approximate convex hull in a slightly different way.
+
+\section{Definition of $(\epsilon, \delta)$ hull}
+
+\begin{definition}
+Given a vector $v$ and a point set $P$, we define the \textbf{directional width} as
+\[ \omega_v(P) = \max_{p \in P} p \cdot v \]
+\label{def:dir_width}
+\end{definition}
+\begin{definition}
+If $p$ is a point we define $\omega_v(p) = p \cdot v = \omega_v(\{p\})$
+\end{definition}
+
+It is easy to see that if $S \subseteq P$ then for all $v$, $\omega_v(S) \leq \omega_v(P)$.
+
+\begin{definition}
+We say $S$ \textbf{maximizes} $P$ in $v$ if
+\[ \omega_v(P) = \omega_v(S) \]
+Note that as per definition~\ref{def:dir_width}, $S$ can be either a single vector or a set of vectors.
+\end{definition}
+
+\begin{definition}
+A \textbf{convex hull} is the minimal sized set $S \subseteq P$ such that $S$ maximizes $P$ in all (unit) directions $v$.
+\end{definition}
+
+\begin{definition}
+We say $S$ \textbf{$\epsilon$-maximizes} $P$ in direction $v$ if $v$ \emph{is a unit vector} and
+\[ |\omega_v(P) - \omega_v(S)| \leq \epsilon \]
+Note that as per definition~\ref{def:dir_width}, $S$ can be either a single vector or a set of vectors.
+\end{definition}
+
+\begin{definition}
+An \textbf{$\epsilon$-hull} is the minimal sized set $S \subseteq P$ such that $S$ $\epsilon$-maximizes $P$ in all (unit) directions $v$. We define OPT to be $|S|$.
+\end{definition}
+
+Intuitively, an $\epsilon$-approximate convex hull approximates the original point set in all directions. Coming up with a streaming algorithm that is competitive within a constant factor of OPT (the batch optimal) for this problem appears to be difficult. An interesting relaxation proposed by Lin is to have a good approximation in \emph{most directions}. In the sections that follow, we will assume that the algorithm has access to OPT and sets $k = \mbox{OPT}$. In practice, we do not know OPT so we would simply set $k$ to be the largest value our computational resources permit. We would then have an $(\epsilon, \delta)$-approximation for all point sets where $\mbox{OPT} \leq k$.
+
+\begin{definition}
+An \textbf{$(\epsilon, \delta)$-hull} is the minimal sized set $S \subseteq P$ such that if we pick a vector $v$ uniformly at random from the surface of the unit sphere, $\mathcal{S}^{d-1}$, $S$ $\epsilon$-maximizes $P$ in direction $v$ with probability at least $1-\delta$, that is,
+\[ \mbox{Pr}(|\omega_v(P) - \omega_v(S)| > \epsilon) \leq \delta \]
+\end{definition}
+
+Our goal is to come up with streaming algorithms for $(\epsilon, \delta)$-hulls that are competitive with OPT (the batch optimal for $\epsilon$-hulls).
+
+\section{Core Lemmas}
+
+\begin{definition}
+Define $E^S_s$ to be the set of all vectors in $\mathbb{R}^d$ (\emph{not just unit vectors}) that $s$ maximizes, that is,
+\[ E^S_s = \{ v \; | \; v \cdot s = \omega_v(S) \} \]
+\end{definition}
+
+\begin{lemma}[$\epsilon$-Maximization Lemma] Suppose $S \subseteq P$ is an $\epsilon$-hull of $P$, and fix $s \in S$. Then $s$ $\epsilon$-maximizes P for all unit vectors $v \in E^S_s$.
+\end{lemma}
+
+\begin{proof}
+This is because for all unit vectors $v$, $|\omega_v(S) - \omega_v(P)| \leq \epsilon$ and for all vectors $v \in E^S_s$, $v \cdot s = \omega_v(S)$, so for all unit vectors $v \in E^S_s$, both properties hold.
+\end{proof}
+
+\begin{lemma}[Covering Lemma] For all vectors $v \in \mathbb{R}^d$,
+\[ v \in \bigcup_{s \in S} E^S_s \]
+\end{lemma}
+
+\begin{proof}
+Given any vector $v$, set $s = \displaystyle\argmax_{s' \in S} s' \cdot v$. Then $v \in E^S_s$.
+\end{proof}
+
+\begin{lemma} [Conic Lemma] $E^S_s$ is a cone, that is,
+\begin{enumerate}
+\item $0 \in E^S_s$
+\item If $v \in E^S_s$ and $\alpha \in \mathbb{R^+}$ then $\alpha v \in E^S_s$.
+\item If $v, w \in E^S_s$ then $v + w \in E^S_s$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof} We prove each item,
+\begin{enumerate}
+\item $0 \cdot s = \max_{s' \in S} 0 \cdot s' = 0$
+\item $(\alpha v) \cdot s = \alpha (v \cdot s) = \alpha (\max_{s' \in S} v \cdot s') = \max_{s' \in S} (\alpha v) \cdot s'$
+\item $(v + w) \cdot s = (v \cdot s) + (w \cdot s) = \max_{s' \in S} v \cdot s' + \max_{s' \in S} w \cdot s' \geq \max_{s' \in S} (v + w) \cdot s'$
+\end{enumerate}
+\end{proof}
+
+\begin{lemma} [Cutting Lemma] Given any 2 points $a \neq b \in \mathbb{R}^d$, let $H = \{v \; | \; v \cdot a \geq v \cdot b\}$. Then $H$ is a closed halfspace cutting through the origin.
+\end{lemma}
+
+\begin{proof}
+Writing this in another way, $H = \{v \; | \; v \cdot (a - b) \geq 0\}$, which, if $a-b \neq 0$, is precisely the equation of a closed halfspace. The plane defining the boundary of the halfspace is defined by $P = \{v \; | \; v \cdot (a - b) = 0\}$ (that is, the set of all vectors perpendicular to $a-b$) which cuts through the origin.
+\end{proof}
+
+\begin{lemma} [Bounded Maximization Lemma] Suppose $S$ has at least 2 distinct points. Then if $s \in S$, $E^S_s$ is contained inside a closed halfspace passing through the origin.
+\end{lemma}
+
+\begin{proof}
+Choose $s' \in S$ with $s' \neq s$. Then, let $H = \{v \; | \; v \cdot s \geq v \cdot s'\}$. $E^S_s \subseteq H$ but by the cutting lemma, $H$ is a closed halfspace passing through the origin.
+\end{proof}
+
+\section{2D-Algorithm}
+
+\subsection{Algorithm}
+
+We give a deterministic algorithm that stores $O(\frac{k}{\delta})$ points and gives us an $(\epsilon, \delta)$-hull of a point set $P$, where $k$ is the batch optimal for the $\epsilon$-hull of $P$.
+\\
+
+Choose $O(\frac{k}{\delta})$ equally separated unit vectors on the boundary of the unit circle. Going counter-clockwise by angle, the angle formed by any 2 consecutive vectors will be less than $\frac{2\pi\delta}{k}$. For each chosen vector $v$ we store the point $p \in P$ s.t. $p \cdot v = \omega_v(P)$. This can be done in streaming - for a vector $v$, we keep an incoming point $p$ iff $v \cdot p$ is greater than $v \cdot p'$ for the point $p'$ we currently stored in direction $v$ (or if we have not stored any point for direction $v$). Call the set of points our algorithm chooses $T$.
+
+\subsection{Proof}
+
+WLOG suppose that $P$ has at least 2 distinct points (otherwise we can trivially solve the problem by storing the only point in $P$). Consider an optimal $\epsilon$-hull $S \subseteq P$. WLOG suppose that S contains at least 2 points (otherwise we can simply add some point in $P$ to $S$ and our bounds will only change by a constant factor). 
+\\
+
+\textbf{Partitioning}: Pick a vector $v$ uniformly at random on the boundary of the unit circle. By the covering lemma, $v \in E^S_s$ for some $s \in S$. It suffices to show that, conditional on this choice of $s$, the probability that $T$ does not $\epsilon$-approximate $P$ is $\leq \frac{\delta}{k}$. Since $|S| = k$, this would imply that the unconditioned probability that $T$ does not $\epsilon$-approximate $P$ is $\leq k\frac{\delta}{k} = \delta$.
+\\
+
+\textbf{Angular setup}: Fix $s \in S$. $S$ has at least 2 distinct points, so by the cutting lemma, $E^S_s$ is contained in a half-space. So we can rotate space such that $E^S_s$ does not contain the positive x axis. We measure angles counter-clockwise from the positive x-axis. From the conic lemma, we know that $E^S_s$ is the set of all vectors with angles between $\theta_a$ and $\theta_b$ with $\theta_a < \theta_b$. Suppose that $m$ of the vectors we chose, $v_1, v_2, ..., v_m$ were in $E^S_s$ with angles $\theta_1 < \theta_2 < ... < \theta_m$. We also have that $\theta_a \leq \theta_1$ and $\theta_m \leq \theta_b$.
+\\
+
+\begin{lemma}
+Consider some $v_i$. We choose a point $p_i$ s.t. $p_i \cdot v_i = \omega_{v_i}(P)$ (that is, $p_i$ is maximal in direction $v_i$). We will show that $p_i$ $\epsilon$-maximizes either all unit vectors with angles in the range $[\theta_a, \theta_i]$ or in $[\theta_i, \theta_b]$
+\end{lemma}
+
+\begin{proof}
+If $p_i = s$, then $p_i$ $\epsilon$-maximizes all unit directions in $E^S_s$, so we are done. Otherwise, suppose $p_i \neq s$. By the cutting lemma, there exists a closed half-space $H$ passing through the origin, such that $p \cdot v \geq s \cdot v$ iff $v \in H$. By the $\epsilon$-maximization lemma, for all unit vectors $v \in E_s$, $0 \leq \omega_v(P) - s \cdot v \leq \epsilon$. This implies that for all unit vectors $v \in E_s \cap H$, $0 \leq \omega_v(P) - p \cdot v \leq \omega_v(P) - s \cdot v \leq \epsilon$. In other words, $p$ $\epsilon$-maximizes all unit vectors $v \in E_s \cap H$.
+\\
+
+Since $E_s$ is itself contained in some halfspace passing through the origin, $E_s \cap H$ is either the set of vectors with angles in range $[\theta, \theta_b]$ or in range $[\theta_a, \theta]$. We note that $v_i \in E_s \cap H$ and has angle $\theta_i$, so in either case the range contains $\theta_i$. This proves the lemma.
+\end{proof}
+
+We say that $v_i$ is \emph{down} if $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in the range $[\theta_a, \theta_i]$ and \emph{up} if $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in the range $[\theta_i, \theta_b]$. If $v_1$ is up, then $p_1$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_1, \theta_b]$. The angle between $\theta_a$ and $\theta_1$ is $\leq \frac{2\pi\delta}{k}$ because we chose vectors that were $\frac{2\pi\delta}{k}$ apart, so we are done. A similar argument applies if $v_m$ is down, and if $m = 0$ (we did not choose any vectors between $\theta_a$ and $\theta_b$. Otherwise, we consider the smallest $i$ s.t. $v_i$ is down but $v_{i+1}$ is up. Then, $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_a, \theta_i]$ and $p_{i+1}$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_{i+1}, \theta_b]$. We might not $\epsilon$-maximize $P$ in directions with angles in the range $[\theta_i, \theta_{i+1}]$, but this angle is $\leq \frac{2\pi\delta}{k}$.
+
+
+\section{3D-Algorithm}
+
+\section{Generalization}
+\end{document}
