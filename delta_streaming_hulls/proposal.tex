@@ -161,10 +161,10 @@ Choose $O(\frac{k}{\delta})$ equally separated unit vectors on the boundary of t
 WLOG suppose that $P$ has at least 2 distinct points (otherwise we can trivially solve the problem by storing the only point in $P$). Consider an optimal $\epsilon$-hull $S \subseteq P$. WLOG suppose that S contains at least 2 points (otherwise we can simply add some point in $P$ to $S$ and our bounds will only change by a constant factor). 
 \\
 
-\textbf{Partitioning}: Pick a vector $v$ uniformly at random on the boundary of the unit circle. By the covering lemma, $v \in E^S_s$ for some $s \in S$. It suffices to show that, conditional on this choice of $s$, the probability that $T$ does not $\epsilon$-approximate $P$ is $\leq \frac{\delta}{k}$. Since $|S| = k$, this would imply that the unconditioned probability that $T$ does not $\epsilon$-approximate $P$ is $\leq k\frac{\delta}{k} = \delta$.
+\textbf{Partitioning}: Pick a vector $v$ uniformly at random on the boundary of the unit circle. By the covering lemma, $v \in E^S_s$ for some $s \in S$. Fix $s \in S$. It suffices to show the probability that $v \in E^S_s$ and $T$ does not $\epsilon$-maximize $P$ in direction $v$ is $\leq \frac{\delta}{k}$. Then, since there are $k$ choices for $s$, the probability $T$ does not $\epsilon$-approximate $P$ is $\leq k\frac{\delta}{k} = \delta$.
 \\
 
-\textbf{Angular setup}: Fix $s \in S$. $S$ has at least 2 distinct points, so by the cutting lemma, $E^S_s$ is contained in a half-space. So we can rotate space such that $E^S_s$ does not contain the positive x axis. We measure angles counter-clockwise from the positive x-axis. From the conic lemma, we know that $E^S_s$ is the set of all vectors with angles between $\theta_a$ and $\theta_b$ with $\theta_a < \theta_b$. Suppose that $m$ of the vectors we chose, $v_1, v_2, ..., v_m$ were in $E^S_s$ with angles $\theta_1 < \theta_2 < ... < \theta_m$. We also have that $\theta_a \leq \theta_1$ and $\theta_m \leq \theta_b$.
+\textbf{Angular setup}: Fix $s \in S$. $S$ has at least 2 distinct points, so by the cutting lemma, $E^S_s$ is contained in a half-space. So we can rotate space such that $E^S_s$ does not contain the positive x axis. We measure angles counter-clockwise from the positive x-axis. From the conic lemma, we know that $E^S_s$ is the set of all vectors with angles between $\theta_a$ and $\theta_b$ with $\theta_a < \theta_b$. Out of the $O(\frac{k}{\delta})$ vectors we chose, consider the subset of vectors that are in $E^S_s$. Call them $v_1, v_2, ..., v_m$ and suppose they have corresponding angles $\theta_1 < \theta_2 < ... < \theta_m$. We also have that $\theta_a \leq \theta_1$ and $\theta_m \leq \theta_b$.
 \\
 
 \begin{lemma}
@@ -181,7 +181,82 @@ Since $E_s$ is itself contained in some halfspace passing through the origin, $E
 We say that $v_i$ is \emph{down} if $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in the range $[\theta_a, \theta_i]$ and \emph{up} if $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in the range $[\theta_i, \theta_b]$. If $v_1$ is up, then $p_1$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_1, \theta_b]$. The angle between $\theta_a$ and $\theta_1$ is $\leq \frac{2\pi\delta}{k}$ because we chose vectors that were $\frac{2\pi\delta}{k}$ apart, so we are done. A similar argument applies if $v_m$ is down, and if $m = 0$ (we did not choose any vectors between $\theta_a$ and $\theta_b$. Otherwise, we consider the smallest $i$ s.t. $v_i$ is down but $v_{i+1}$ is up. Then, $p_i$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_a, \theta_i]$ and $p_{i+1}$ $\epsilon$-maximizes $P$ in all directions with angles in $[\theta_{i+1}, \theta_b]$. We might not $\epsilon$-maximize $P$ in directions with angles in the range $[\theta_i, \theta_{i+1}]$, but this angle is $\leq \frac{2\pi\delta}{k}$.
 
 
-\section{3D-Algorithm}
+\section{Generalizing to higher dimensions}
 
-\section{Generalization}
+\subsection{Algorithm}
+
+Suppose we fix the dimension $d$. We give a randomized algorithm that uses $n$ points and with probability at least $1-p$ gives us an $(\epsilon, \delta)$-hull of a point set $P$, where $k$ is the batch optimal for the $\epsilon$-hull of $P$ and $n$ is defined as
+\[ n \in O\left(\frac{k^2}{\delta^2}\left(\log{k} + \log{\frac{1}{\delta} + \log{\frac{1}{p}} }\right)\right) \]
+
+Note that the given complexity hides the dependency on $d$, so the actual complexity will be $O(f(d) \frac{k^2}{\delta^2}\left(\log{k} + \log{\frac{1}{\delta} + \log{\frac{1}{p}} }\right))$ where I think $f(d) \sim 8^d$. This section is currently a draft. The ideas are not entirely formal, but hopefully it should give a sense of what we have right now and what details we need to fill in. We think there might be a simpler proof of the algorithm, so understanding the intuition behind the algorithm might help. The bound might not be tight (or entirely correct) either.
+\\
+
+The algorithm is simple: Choose $n$ random vectors on the unit sphere. For each chosen vector $v$ we store the point $p \in P$ s.t. $p \cdot v = \omega_v(P)$. As in the 2D algorithm, this can be done in streaming.
+
+\subsection{Proof Sketch}
+
+As before, WLOG suppose that $P$ has at least 2 distinct points (otherwise we can trivially solve the problem by storing the only point in $P$). Consider an optimal $\epsilon$-hull $S \subseteq P$. WLOG suppose that S contains at least 2 points (otherwise we can simply add some point in $P$ to $S$ and our bounds will only change by a constant factor). 
+\\
+
+\textbf{Constructing small triangular cones}: A triangular cone is a cone defined by the non-negative sums of 3 vectors. First, we choose $c$ ``small" triangular cones, where $c$ is a large constant. Consider a triangle cone defined by unit vectors $v_1, v_2, v_3$. More precisely, we choose the cones so that $\max(|v_1 - v_2|_2, |v_2 - v_3|_2, |v_1 - v_3|_2) < 0.01$. We choose the cones so that they are disjoint, and they span $\mathbb{R}^d$, that is, every vector is in some cone. We need to prove that this is possible, but I think in any fixed dimensional space it's fairly clear that we should be able to do this. Intuitively, there should be a constructive proof, where we start out with a bunch of triangular cones that span $\mathbb{R}^d$. Then we can keep making the cones smaller (we can select a vector in the middle of each cone to split it up into 3 cones) until the cones satisfy the required condition.
+\\
+
+\textbf{Bounding size of $E_s$ cones}: Next, we consider the intersection of each cone $E_s$ with each of the $c$ triangular cones. This means we get a total of $ck$ cones. The cones are small, in the sense they are contained in the ``small" triangular cones we chose. Consider the intersection of any of these cones with the unit sphere. If the measure of the intersection is small, that is, if it is smaller than $\frac{\delta}{2ck}$ then we can ignore the cone. This is because even if we don't $\epsilon$-maximize directions in these cones, we have at most $ck$ such cones, so we miss at most $\frac{\delta}{2}$ of all directions. In other words, WLOG the cones are not ``too small".
+\\
+
+\textbf{Cutting cones}: Consider a cone $C \cap E^S_s$. Intuitively, we are going to show that each time we choose a vector $v$, we cut away part of $C \cap E^S_s$ (for the part we cut off, we have an $\epsilon$-maximization). Consider each unit vector $v$ we choose in cone $C \cap E^S_s$, and corresponding point $p$ that maximizes $P$ in $v$. If $p = s$, then $p$ $\epsilon$-maximizes the whole cone $E^S_s$ so we are done. Otherwise, by the cutting lemma, there exists a closed half-space $H$ passing through the origin, such that $p \cdot v' \geq s \cdot v'$ iff $v' \in H$. As in the 2D proof, $p$ then $\epsilon$-maximizes all vectors in $E^S_s \cap H$ and therefore in $C \cap E^S_s \cap H$. So the region of $C \cap E^S_s$ that we might not have $\epsilon$-maximized is $C \cap E^S_s \cap H^c$. $C \cap E^S_s \cap H^c \subseteq C \cap E^S_s \cap (H^c \cup \{0\})$. $(H^c \cup \{0\})$ is a cone, and the intersection of cones is a cone, so  $C \cap E^S_s \cap (H^c \cup \{0\})$ is also a cone. Note that $v \in H$ and $v \neq 0$, so $v \not\in C \cap E^S_s \cap (H^c \cup \{0\})$.
+\\
+
+\textbf{Projection}: After choosing many vectors $v \in C \cap E^S_s$, we end up with a cone $C' \subseteq C \cap E^S_s$ where $C'$ does not contain any of the selected vectors $v$. We want to show that the area of $C' \cap \mathbb {S}^2$ is less than $\frac{\delta}{ck}$ fraction of the unit sphere's area. The main trick will be to project this into a 2-dimensional problem. Suppose that (triangular) cone $C$ was defined by vectors $v_1, v_2, v_3$. Consider the plane $P$ containing the endpoints of $v_1, v_2, v_3$. We project $C \cap E^S_s \cap \mathbb {S}^2$ onto $P$, and similarly project all unit vectors we chose that are in $C \cap E^S_s \cap \mathbb {S}^2$ onto $P$, and project $C' \cap \mathbb {S}^2$ onto $P$. 
+\\
+
+\textbf{Reduced problem}: This gives us a simpler problem. Suppose we have convex polygon $C$ with area $A$, where we choose points in $C$ from a nearly uniform distribution $\pi$. More formally, the ratio between the max and min of the PDF of $\pi$ is at most 2. Call a convex polygon \emph{respectful} if it does not contain any selected points. How many points do we need to choose so that with high probability, all respectful convex polygons contained in $C$ must have area $\leq \frac{\delta}{k}$? The reason this reduction holds is because we chose cone $C$ to be small, so $C \cap \mathbb {S}^2$ is quite flat. In particular, if we rotate space so that plane $P$ is perpendicular to the $z$ axis, the norm of the gradient of $C \cap \mathbb {S}^2$ is bounded by 2. So when a set of measure $v$ in $C \cap E^S_s \cap \mathbb {S}^2$ is projected to $P$ it has measure between $\frac{v}{2}$ and $v$.
+
+\begin{lemma}
+Given a convex polygon $C$, there exists 3 points in $C$ such that the triangle formed between them has area at least $\frac{1}{4}$ the area of $C$.
+\label{lemma:convex_approx}
+\end{lemma}
+
+\begin{lemma}
+The pdf of $\pi$ must be between $\frac{1}{2A}$ and $\frac{2}{A}$ everywhere.
+\end{lemma}
+
+\textbf{Uniform Bound Outline} Let $T$ be the set of triangles contained in polygon $C$ with area $\geq \frac{\delta}{4ck}$.  Given $t \in T$, let $P(t)$ denote the probability that a point selected from $\pi$ lies in $t$. Since $\pi$ is almost uniform, $P(t) \geq \frac{\delta}{8Ack}$. We will use uniform bounds and VC dimension, to show that if we select enough points in $C$ then with high probability \emph{every} triangle in $T$ will contain a point. This is sufficient to solve the problem: consider arbitrary convex polygon $G$ contained in $C$ with area $\geq \frac{\delta}{ck}$. By lemma~\ref{lemma:convex_approx}, it contains a triangle of area $\geq \frac{\delta}{4ck}$. But all such triangles contain a point, so $G$ contains a point. Therefore every convex polygon in $C$ that does not contain a point must have area $< \frac{\delta}{ck}$.
+\\
+
+\textbf{Sampling Process} Select $n$ points in $C$ from distribution $\pi$. For $t \in T$, let $C_n(t)$ be the number of selected points that lie in $t$, and let $P_n(t)$ be $\frac{C_n(t)}{n}$. Intuitively, we are estimating the cumulative density of $\pi$ in a region by sampling points and computing the proportion of points that fall in the region. Suppose that for all $t \in T$, $|P_n(t) - P(t)| < \frac{\delta}{8Ack}$ (this means that $P_n$ approximates $P$ well). Then, for all $t$, since $P(t) \geq \frac{\delta}{8Ack}$, $P_n(t) > 0$. This means that every triangle $t \in T$ contains a point.
+\\
+
+\textbf{VC Dimension} We want to show that with probability at least $1-\frac{p}{2ck}$, $\sup_{t \in T} |P_n(t) - P(t)| < \frac{\delta}{8Ack}$. The VC dimension of $T$ is 7. Letting $\epsilon = \frac{\delta}{8Ack}$, we apply a VC-dimension based uniform bound to get that,
+\[ P(\sup_{t \in T} |P_n(t) - P(t)| > \epsilon) \leq 8(n+1)^7 e^{-n\epsilon^2/32} \]
+
+Setting $n  \in O(\frac{A^2k^2}{\delta^2} (\log{\frac{Ak}{\delta}} + \log{\frac{k}{p}}))$ works, since $k > 2$ and $\delta < 1$.
+\\
+
+\textbf{Finishing up}: Consider a cone $C \cap E^S_s$. Suppose that the intersection $C \cap E^S_s \cap \mathbb {S}^2$ has area $A$. The projection has area $\leq A$, so it suffices to choose $n \in O(\frac{A^2k^2}{\delta^2} (\log{\frac{Ak}{\delta}} + \log{\frac{k}{p}}))$ unit vectors in $C \cap E^S_s \cap \mathbb {S}^2$. When we choose a unit vector at random, it lies in $C \cap E^S_s \cap \mathbb {S}^2$ with probability $c = \frac{A}{4\pi}$. We want to choose $m$ points, so that with probability at least $1-\frac{p}{2ck}$ we have $n$ points inside the cone. From a standard Chernoff bound argument, $m \in O(\frac{n}{c}(\log{n} + \log{\frac{k}{p}} ))$ works. Simplifying, this becomes,
+\begin{align*}
+m &= O\left(\left[\left(\frac{A^2k^2}{\delta^2} \left(\log{\frac{Ak}{\delta}} + \log{\frac{k}{p}}\right)\right)\left(\frac{4\pi}{A}\right)\right]\left[ \log{n} + \log{\frac{k}{p}} \right]\right) \\
+&= O\left( \left[\left(\frac{Ak^2}{\delta^2} \left(\log{\frac{Ak}{\delta}} + \log{\frac{k}{p}}\right)\right)\right]\left[ \log{n} + \log{\frac{k}{p}} \right] \right)
+\end{align*}
+
+We note that $A \leq 4\pi$. Furthermore, $\log{n}$ actually simplifies to
+\[ O(\log{\frac{k}{\delta}} + \log(\log{\frac{k}{\delta}} + \log{\frac{k}{p}})) \subseteq O(\log{\frac{k}{\delta}} + \log{\frac{k}{p}}) \]
+
+So in the worst case $m$ reduces to
+\[ m \in O\left(\frac{k^2}{\delta^2}\left(\log{k} + \log{\frac{1}{\delta} + \log{\frac{1}{p}} }\right)\right) \]
+We can apply union bounds over the cones to get a $\leq p$ chance of failure.
+
+\subsection{Dealing with higher dimensions}
+
+A few parts of the proof need to be verified and augmented to deal with higher dimensions.
+\begin{enumerate}
+\item The section where we construct small triangular cones. In $d$ dimensional space, the cones will be defined by $d$ vectors such that the pairwise distance between any 2 vectors is at most 0.1. We need to prove that this can be done, and analyze how the number of cones needed scales with $d$.
+\item We need to verify that the projection to a $d-1$ dimensional problem works.
+\item We need to modify lemma~\ref{lemma:convex_approx} to something like: every $d$ dimensional polyhedra $C$ has a subset of $d$ points $S$, such that the ratio of the $d$-dimensional volume of $C$ to the $d$-dimensional volume of $S$ is at most $2^{d-1}$.
+\item We need to verify and bound the VC dimension of a $d$ dimensional shape containing $d$ points.
+\end{enumerate}
+
+% Suppose that the intersection with the sphere has area $A$.
+
+
 \end{document}
