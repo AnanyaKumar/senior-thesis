@@ -1,0 +1,277 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{HPKMR16}
+
+\bibitem[AC14]{Arya:2014:BOA:2582112.2582161}
+Sunil Arya and Timothy~M. Chan.
+\newblock Better epsilon-dependencies for offline approximate nearest neighbor
+  search, euclidean minimum spanning trees, and epsilon-kernels.
+\newblock In {\em Proceedings of the Thirtieth Annual Symposium on
+  Computational Geometry}, SOCG'14, pages 416:416--416:425, New York, NY, USA,
+  2014. ACM.
+
+\bibitem[AGH{\etalchar{+}}12]{DBLP:arora-practice}
+Sanjeev Arora, Rong Ge, Yoni Halpern, David~M. Mimno, Ankur Moitra, David
+  Sontag, Yichen Wu, and Michael Zhu.
+\newblock A practical algorithm for topic modeling with provable guarantees.
+\newblock {\em CoRR}, abs/1212.4777, 2012.
+
+\bibitem[AGKM11]{DBLP:arora}
+Sanjeev Arora, Rong Ge, Ravi Kannan, and Ankur Moitra.
+\newblock Computing a nonnegative matrix factorization -- provably.
+\newblock {\em CoRR}, abs/1111.0952, 2011.
+
+\bibitem[AGKM12]{Arora:2012:CNM:2213977.2213994}
+Sanjeev Arora, Rong Ge, Ravindran Kannan, and Ankur Moitra.
+\newblock Computing a nonnegative matrix factorization -- provably.
+\newblock In {\em Proceedings of the Forty-fourth Annual ACM Symposium on
+  Theory of Computing}, STOC '12, pages 145--162, New York, NY, USA, 2012. ACM.
+
+\bibitem[AHPV04]{Agarwal:2004:AEM:1008731.1008736}
+Pankaj~K. Agarwal, Sariel Har-Peled, and Kasturi~R. Varadarajan.
+\newblock Approximating extent measures of points.
+\newblock {\em J. ACM}, 51(4):606--635, July 2004.
+
+\bibitem[AHPV05]{survey}
+Pankaj~K. Agarwal, Sariel Har-Peled, and Kasturi~R. Varadarajan.
+\newblock Geometric approximation via coresets.
+\newblock In {\em COMBINATORIAL AND COMPUTATIONAL GEOMETRY, MSRI}, pages 1--30.
+  University Press, 2005.
+
+\bibitem[AKSS17]{DBLP:journals/corr/AgarwalKSS17}
+Pankaj~K. Agarwal, Nirman Kumar, Stavros Sintos, and Subhash Suri.
+\newblock Efficient algorithms for k-regret minimizing sets.
+\newblock {\em CoRR}, abs/1702.01446, 2017.
+
+\bibitem[BB05]{Berry2005}
+Michael~W. Berry and Murray Browne.
+\newblock Email surveillance using non-negative matrix factorization.
+\newblock volume~11, pages 249--264, 2005.
+
+\bibitem[BDPD{\etalchar{+}}12]{6200362}
+J.~M. Bioucas-Dias, A.~Plaza, N.~Dobigeon, M.~Parente, Q.~Du, P.~Gader, and
+  J.~Chanussot.
+\newblock Hyperspectral unmixing overview: Geometrical, statistical, and sparse
+  regression-based approaches.
+\newblock {\em IEEE Journal of Selected Topics in Applied Earth Observations
+  and Remote Sensing}, 5(2):354--379, April 2012.
+
+\bibitem[BHP01]{BAREQUET200191}
+Gill Barequet and Sariel Har-Peled.
+\newblock Efficiently approximating the minimum-volume bounding box of a point
+  set in three dimensions.
+\newblock {\em Journal of Algorithms}, 38(1):91 -- 109, 2001.
+
+\bibitem[BHPR16]{blum-peled}
+Avrim Blum, Sariel Har-Peled, and Benjamin Raichel.
+\newblock Sparse approximation via generating point sets.
+\newblock In {\em Proceedings of the Twenty-Seventh Annual ACM-SIAM Symposium
+  on Discrete Algorithms}, pages 548--557, 2016.
+
+\bibitem[BLK15]{icml2015_bachem15}
+Olivier Bachem, Mario Lucic, and Andreas Krause.
+\newblock Coresets for nonparametric estimation - the case of dp-means.
+\newblock In David Blei and Francis Bach, editors, {\em Proceedings of the 32nd
+  International Conference on Machine Learning (ICML-15)}, pages 209--217. JMLR
+  Workshop and Conference Proceedings, 2015.
+
+\bibitem[BPF82]{Bentley:1982:AAC:358315.358392}
+Jon~Louis Bentley, Franco~P. Preparata, and Mark~G. Faust.
+\newblock Approximation algorithms for convex hulls.
+\newblock {\em Commun. ACM}, 25(1):64--68, January 1982.
+
+\bibitem[Cha06]{CHAN200620}
+Timothy~M. Chan.
+\newblock Faster core-set constructions and data-stream algorithms in fixed
+  dimensions.
+\newblock {\em Computational Geometry}, 35(1):20 -- 35, 2006.
+
+\bibitem[Cha16]{chansocg2016}
+Timothy~M. Chan.
+\newblock Dynamic streaming algorithms for ε-kernels.
+\newblock In {\em Proc. 32nd Annu. Sympos. Comput. Geom. (SoCG)}, 2016.
+
+\bibitem[Cha17]{timchansocg2017}
+Timothy~M. Chan.
+\newblock Applications of chebyshev polynomials to low-dimensional
+  computational geometry.
+\newblock In {\em Proc. 33rd Annu. Sympos. Comput. Geom. (SoCG)}, 2017.
+
+\bibitem[DS04]{NIPS2003_2463}
+David Donoho and Victoria Stodden.
+\newblock When does non-negative matrix factorization give a correct
+  decomposition into parts?
+\newblock In S.~Thrun, L.~K. Saul, and P.~B. Sch\"{o}lkopf, editors, {\em
+  Advances in Neural Information Processing Systems 16}, pages 1141--1148. MIT
+  Press, 2004.
+
+\bibitem[FFK11]{Feldman:2011:STM:2986459.2986698}
+Dan Feldman, Matthew Faulkner, and Andreas Krause.
+\newblock Scalable training of mixture models via coresets.
+\newblock In {\em Proceedings of the 24th International Conference on Neural
+  Information Processing Systems}, NIPS'11, pages 2142--2150, USA, 2011. Curran
+  Associates Inc.
+
+\bibitem[FSS13]{Feldman}
+Dan Feldman, Melanie Schmidt, and Christian Sohler.
+\newblock Turning big data into tiny data: Constant-size coresets for k-means,
+  pca and projective clustering.
+\newblock In {\em Proceedings of the Twenty-Fourth Annual ACM-SIAM Symposium on
+  Discrete Algorithms}, SODA '13, pages 1434--1453, Philadelphia, PA, USA,
+  2013. Society for Industrial and Applied Mathematics.
+
+\bibitem[Gil14]{gillis_survey}
+Nicolas Gillis.
+\newblock The why and how of nonnegative matrix factorization.
+\newblock {\em Regularization, Optimization, Kernels, and Support Vector
+  Machines}, 2014.
+
+\bibitem[GL14]{Gillis:2014:RNN:2627435.2638575}
+Nicolas Gillis and Robert Luce.
+\newblock Robust near-separable nonnegative matrix factorization using linear
+  optimization.
+\newblock {\em J. Mach. Learn. Res.}, 15(1):1249--1280, January 2014.
+
+\bibitem[HG97]{Heckbert97surveyof}
+Paul~S. Heckbert and Michael Garland.
+\newblock Survey of polygonal surface simplification algorithms, 1997.
+
+\bibitem[Hoy04]{hoyer-nmf}
+Patrik~O. Hoyer.
+\newblock Non-negative matrix factorization with sparseness constraints.
+\newblock {\em J. Mach. Learn. Res.}, 5:1457--1469, December 2004.
+
+\bibitem[HP11]{geom_approx_algs}
+Sariel Har-Peled.
+\newblock {\em Geometric Approximation Algorithms}.
+\newblock American Mathematical Society, 2011.
+
+\bibitem[HPKMR16]{Har-Peled:2016:SEV:2984951.2984998}
+Sariel Har-Peled, Nirman Kumar, David~M. Mount, and Benjamin Raichel.
+\newblock Space exploration via proximity search.
+\newblock {\em Discrete Comput. Geom.}, 56(2):357--376, September 2016.
+
+\bibitem[HPM04]{Har-Peled:2004:CKK:1007352.1007400}
+Sariel Har-Peled and Soham Mazumdar.
+\newblock On coresets for k-means and k-median clustering.
+\newblock In {\em Proceedings of the Thirty-sixth Annual ACM Symposium on
+  Theory of Computing}, STOC '04, pages 291--300, New York, NY, USA, 2004. ACM.
+
+\bibitem[HPRZ07]{peled-application}
+Sariel Har-Peled, Dan Roth, and Dav Zimak.
+\newblock Maximum margin coresets for active and noise tolerant learning.
+\newblock In {\em Proceedings of the 20th International Joint Conference on
+  Artifical Intelligence}, IJCAI'07, pages 836--841, San Francisco, CA, USA,
+  2007. Morgan Kaufmann Publishers Inc.
+
+\bibitem[HS04]{Hershberger:2004:ASG:1055558.1055595}
+John Hershberger and Subhash Suri.
+\newblock Adaptive sampling for geometric problems over data streams.
+\newblock In {\em Proceedings of the Twenty-third ACM SIGMOD-SIGACT-SIGART
+  Symposium on Principles of Database Systems}, PODS '04, pages 252--262, New
+  York, NY, USA, 2004. ACM.
+
+\bibitem[KBF09]{kegl}
+Bal\'{a}zs K{\'e}gl and R\'{o}bert Busa-Fekete.
+\newblock Boosting products of base classifiers.
+\newblock In {\em Proceedings of the 26th Annual International Conference on
+  Machine Learning}, ICML '09, pages 497--504, New York, NY, USA, 2009. ACM.
+
+\bibitem[KBN10]{Kolter:2010:EDV:2997189.2997318}
+J.~Zico Kolter, Siddarth Batra, and Andrew~Y. Ng.
+\newblock Energy disaggregation via discriminative sparse coding.
+\newblock In {\em Proceedings of the 23rd International Conference on Neural
+  Information Processing Systems}, NIPS'10, pages 1153--1161, USA, 2010. Curran
+  Associates Inc.
+
+\bibitem[LBBH98]{lecun}
+Y.~Lecun, L.~Bottou, Y.~Bengio, and P.~Haffner.
+\newblock Gradient-based learning applied to document recognition.
+\newblock {\em Proceedings of the IEEE}, 86(11):2278--2324, Nov 1998.
+
+\bibitem[Lin07]{lin-grad-optimization}
+Chih-Jen Lin.
+\newblock Projected gradient methods for nonnegative matrix factorization.
+\newblock {\em Neural Comput.}, 19(10):2756--2779, October 2007.
+
+\bibitem[LLR16]{NIPS2016_6417}
+Yuanzhi Li, Yingyu Liang, and Andrej Risteski.
+\newblock Recovery guarantee of non-negative matrix factorization via
+  alternating updates.
+\newblock In D.~D. Lee, M.~Sugiyama, U.~V. Luxburg, I.~Guyon, and R.~Garnett,
+  editors, {\em Advances in Neural Information Processing Systems 29}, pages
+  4987--4995. Curran Associates, Inc., 2016.
+
+\bibitem[LS97]{Lee97unsupervisedlearning}
+D.~D. Lee and H.S. Seung.
+\newblock Unsupervised learning by convex and conic coding.
+\newblock In {\em Advances in Neural Information Processing Systems 9}, pages
+  515--521. MIT Press, 1997.
+
+\bibitem[LS99]{leeseung95}
+Daniel~D. Lee and H.~Sebastian Seung.
+\newblock Learning the parts of objects by non-negative matrix factorization.
+\newblock In {\em Nature}, pages 788--791, 1999.
+
+\bibitem[LS00]{Lee00algorithmsfor}
+Daniel~D. Lee and H.~Sebastian Seung.
+\newblock Algorithms for non-negative matrix factorization.
+\newblock In {\em In NIPS}, pages 556--562. MIT Press, 2000.
+
+\bibitem[MBPS10]{Mairal:2010:OLM:1756006.1756008}
+Julien Mairal, Francis Bach, Jean Ponce, and Guillermo Sapiro.
+\newblock Online learning for matrix factorization and sparse coding.
+\newblock {\em J. Mach. Learn. Res.}, 11:19--60, March 2010.
+
+\bibitem[Moi14]{moitramonograph}
+Ankur Moitra.
+\newblock {\em Algorithmic Aspects of Machine Learning}.
+\newblock 2014.
+
+\bibitem[MTM12]{Murphy2012LearningEA}
+Brian Murphy, Partha~Pratim Talukdar, and Tom~M. Mitchell.
+\newblock Learning effective and interpretable semantic models using
+  non-negative sparse embedding.
+\newblock In {\em COLING}, 2012.
+
+\bibitem[PFRN14]{6907021}
+R.~Paul, D.~Feldman, D.~Rus, and P.~Newman.
+\newblock Visual precis generation using coresets.
+\newblock In {\em 2014 IEEE International Conference on Robotics and Automation
+  (ICRA)}, pages 1304--1311, May 2014.
+
+\bibitem[SA17]{aryasocg2017}
+David M.~Mount Sunil~Arya, Guilherme D. da~Fonseca.
+\newblock Near-optimal ε-kernel construction and related problems.
+\newblock In {\em Proc. 33rd Annu. Sympos. Comput. Geom. (SoCG)}, 2017.
+
+\bibitem[SLH07]{schmidt-noise}
+M.~N. Schmidt, J.~Larsen, and F.~T. Hsiao.
+\newblock Wind noise reduction using non-negative sparse coding.
+\newblock In {\em 2007 IEEE Workshop on Machine Learning for Signal
+  Processing}, pages 431--436, Aug 2007.
+
+\bibitem[TKC05]{cvms}
+Ivor~W. Tsang, James~T. Kwok, and Pak-Ming Cheung.
+\newblock Core vector machines: Fast svm training on very large data sets.
+\newblock {\em J. Mach. Learn. Res.}, 6:363--392, December 2005.
+
+\bibitem[Vav10]{nmf-np-complete}
+Stephen~A. Vavasis.
+\newblock On the complexity of nonnegative matrix factorization.
+\newblock {\em SIAM Journal on Optimization}, 20(3):1364--1377, 2010.
+
+\bibitem[YAPV04]{Yu:2004:PMS:997817.997858}
+Hai Yu, Pankaj~K. Agarwal, Raghunath Poreddy, and Kasturi~R. Varadarajan.
+\newblock Practical methods for shape fitting and kinetic data structures using
+  core sets.
+\newblock In {\em Proceedings of the Twentieth Annual Symposium on
+  Computational Geometry}, SCG '04, pages 263--272, New York, NY, USA, 2004.
+  ACM.
+
+\bibitem[ZZ11]{Zarrabi-Zadeh:2011:ASS:1967334.1967341}
+Hamid Zarrabi-Zadeh.
+\newblock An almost space-optimal streaming algorithm for coresets in fixed
+  dimensions.
+\newblock {\em Algorithmica}, 60(1):46--59, May 2011.
+
+\end{thebibliography}

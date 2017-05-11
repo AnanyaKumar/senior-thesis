@@ -1,0 +1,241 @@
+% LaTeX Article Template - using defaults
+\documentclass[12pt]{report}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{pseudocode}
+\pdfpagewidth 8.5in
+\pdfpageheight 11in
+
+\usepackage[final]{showkeys}
+
+
+% Set left margin - The default is 1 inch, so the following 
+% command sets a 1.25-inch left margin.
+\setlength{\oddsidemargin}{0.25in}
+
+% Set width of the text - What is left will be the right margin.
+% In this case, right margin is 8.5in - 1.25in - 6in = 1.25in.
+\setlength{\textwidth}{6in}
+
+% Set top margin - The default is 1 inch, so the following 
+% command sets a 0.75-inch top margin.
+\setlength{\topmargin}{-0.25in}
+
+\setlength\parindent{0pt}
+
+% Set height of the text - What is left will be the bottom margin.
+% In this case, bottom margin is 11in - 0.75in - 9.5in = 0.75in
+\setlength{\textheight}{8in}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{lemma}
+\newtheorem{lemma}{Lemma}[section]
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{corollary}
+\newtheorem{corollary}{Corollary}[section]
+
+
+% Set the beginning of a LaTeX document
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  {\scshape\LARGE Carnegie Mellon University \par}
+  \vspace{1cm}
+  {\scshape\Large Senior Thesis\par}
+  \vspace{1.5cm}
+  {\huge\bfseries Streaming Algorithms for Approximate Convex Hulls\par}
+  \vspace{2cm}
+  {\Large\itshape Ananya Kumar\par}
+  \vfill
+  Advised by:\par
+  Avrim \textsc{Blum}
+  \vspace{3mm}
+
+  Collaborated with:\par
+  Lin \textsc{Yang}, Harry \textsc{Lang}, Vova \textsc{Braverman}
+
+  \vfill
+\end{titlepage}
+
+% % Bottom of the page
+%   {\large \today\par}
+% \end{titlepage}
+
+% \title{Streaming Algorithms for Approximate Convex Hulls \\
+% Carnegie Mellon University}         % Enter your title between curly braces
+% \author{Ananya Kumar (ananyak) \\
+% Advisor: Avrim Blum \\
+% Collaborators: Lin Yang, Harry Lang, Vova Braverman}        % Enter your name between curly braces
+% \date{\today}          % Enter your date or \today between curly braces
+% \maketitle
+
+% \newpage
+
+\chapter*{Abstract}
+
+Given a finite set of points $P \subseteq \mathbb{R}^d$, an approximate convex hull is a subset of points in $P$ that approximately covers the original set. More formally, every point in $P$ is within distance $\epsilon$ from the convex closure of the subset. The optimal approximate convex hull is the smallest such subset. Approximate convex hulls are intimately tied to the notion of coresets (which are used in computational geometry, machine learning, and approximation algorithms) and non-negative matrix factorization (an unsupervised learning approach).
+\\
+
+In many cases, the set $P$ is too large to fit in memory. In these cases we need a streaming (one-pass) algorithm that stores much less memory than $P$. Existing streaming algorithms for this problem give bounds that only depend on $\epsilon$ but that ignore the structure of the data. A natural question is whether we can do better than state-of-the-art when the data is well structured, in particular, when the optimal approximate convex hull is small. 
+\\
+
+We show lower bounds for this problem to justify that it is hard. We then propose two interesting relaxations of the problem. In the first relaxation we assume the data is randomly permuted before the algorithm runs (which is true if the data points are from arbitrary independent identical distributions). In the second relaxation our approximation only needs to be correct in “most” directions. We come up with new streaming algorithms and theorems for these relaxations. 
+
+\chapter*{Acknowledgements}
+
+Avrim, you have been a wonderful research advisor for the last year and a half. You introduced me to lots of interesting concepts in machine learning and algorithms. When I worked on some really hard problems, and did not make progress for weeks, you gave me words of encouragement. Lin, Harry, and Vova, I've really treasure our collaboration.
+\\
+
+Guy, I have leant so much from doing research with you. You walked me through how to approach research problems, introduced me to exciting concepts in parallel data structures, and taught me how to write a research paper. I like that you encouraged me to drop by and talk about research unscheduled. Bob, you introduced me to the beauty of programming languages, and spent hours going through my proofs and presentations, suggesting how I can improve them. Red, thank you for putting up with me when I worked with you, you taught me to ask for help when I am stuck.
+\\
+
+Carnegie Mellon is an amazing place because of my peers. I am indebted to my wonderful friends, Noah, Dominick, David, Will, Taehoon, Victor, Ray, for supporting me and talking about cool ideas in computer science. Sunny, my first 3 years at CMU would not have been the same without you. Maya, thank you for always being there for me over the last 4 years. Bojian, thank you for visiting me so often, and for some of the most interesting conversations I've ever had. Peijin, you are probably one of the most smartest and most helpful people I've ever met. Satya Prateek, thank you for listening to me ramble about ideas for the last 10 years. Rachel, thanks for being a wonderful girlfriend, being so helpful, and inspiring me with your work ethic.
+\\
+
+Most of all, I want to thank my parents for loving me, supporting me, and educating me for the last 22 years. You are always so interested in hearing about what I'm doing, and are so selfless in your love for me. I would not be where I am without you.
+
+\tableofcontents
+
+\chapter{Introduction and Definitions}
+\input{intro}
+
+\chapter{Background and Related Work}
+\label{chapter:related_work}
+\input{related_work}
+
+\chapter{Streaming Model and Lower Bounds}
+\label{chapter:lower_bounds}
+\input{lower_bounds}
+
+\chapter{Random Order Algorithm}
+\input{random_order}
+
+\chapter{$\epsilon-\delta$ Hull Algorithms}
+\input{eps_delta_hulls}
+
+\chapter{Discussion}
+\input{discussion}
+
+\chapter*{Appendix A: Experiments with NMF}
+
+The MNIST database contains labeled images of handwritten digits~\cite{lecun}. Each image is represented by a 28-by-28 grid of black-white intensity values. The training set has 60,000 samples and the testing set has 10,000 samples. A variety of algorithms have been tested for supervised classification on the MNIST database.
+\\
+
+Our approach for using NMF for supervised classification is similar to Lee and Seung's ~\cite{Lee97unsupervisedlearning}. For the training set, we separate the images which are associated with each digit (to get 10 sets of images). We find the NMF for each of these separated sets. Then for each test image, we try to reconstruct it using the NMF topic matrix for each digit. We output the digit whose topic matrix best reconstructs the image. Intuitively, we are finding the parts that comprise each handwritten digit, and given a new image we are finding the parts that best represent the new image.
+\\
+
+We normalize each image before running the algorithms so that each image has Euclidean norm 1. We test a variety of different NMF algorithms. We first use two-fold cross-validation on the training set to find good sizes for the NMF topics matrices. In this stage we randomly split the training set into two parts $A$ and $B$. We train the NMF algorithm on $A$ and check its accuracy on $B$ for various sizes of topic matrices. We repeat the cross-validation process 5 times for each NMF algorithm and each topic matrix size in (10, 20, 30, ..., 90). We did not touch the test set in this stage so that the runs on the test set would be independent of the optimization process and could be used to get generalization guarantees for them.
+\\
+
+In the next stage, we trained the NMF algorithms on the training set, and used them to classify images in the test set. Let the topic matrix size be $t$. We tested 4 different algorithms:
+\\
+
+\textbf{Matlab NMF} Uses the Matlab library functions for (non-sparse, non-convex) non-negative matrix factorization and quadratic programming for reconstructing a test image from the NMF topic matrix.
+\\
+
+\textbf{Simple Hull} We pick the first $t$ samples of each digit as our topics. Given a new image, we used convex quadratic programming to find the distance of the image to the convex hull of the topic matrix. The digit with the lowest distance is selected.
+\\
+
+\textbf{Gonz Hull} We use a variant of the Gonzales algorithm to select the $t$ topics~\cite{blum-peled}. In the Gonzales algorithm, at each step we look for the point that is farthest away from the current convex hull. This is exceedingly slow (at least on the order of days) on the MNIST database because there are up to 50,000$^2$ calls to a quadratic programming subroutine. Instead, in each iteration we sample 15 random points and choose the point (out of the 15) that is farthest from the current convex hull. The reconstruction process is the same as in the Simple Hull method.
+\\
+
+\textbf{Push Gonz Hull} This is an extension we propose to the Gonzales algorithm for spherical convex hull NMF. In the Gonzales algorithm, after selecting each point, we `push' the point to the boundary of the non-negative region of the unit sphere.
+\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+  Method & NMF Size & Error (\%) \\ 
+ \hline
+ Matlab NMF & 60 & 8.6 \\ 
+ \hline
+ Simple Hull & 60 & 10.7 \\ 
+ \hline
+  Gonz Hull & 60 & 9.7 \\ 
+ \hline
+  Push Gonz Hull & 60 & 9.4 \\ 
+ \hline
+  Matlab NMF & 100 & 9.1 \\ 
+ \hline
+ Simple Hull & 100 & 10.0 \\ 
+ \hline
+  Gonz Hull & 100 & 6.6 \\ 
+ \hline
+  Push Gonz Hull & 100 & 7.2 \\ 
+ \hline
+  Simple Hull & 5000 & 2.1 \\ 
+ \hline
+\end{tabular}
+\caption{Supervised classification error of NMF algorithms}
+\label{tab:main_results_table}
+\end{table}
+
+The results of our tests are shown in table~\ref{tab:main_results_table}. We used the first 2000 of the 10,000 samples in the testing set. Given the number of samples we used, the 95\% standard error of the difference in errors (which can be used when making comparisons across different methods) was 2\%. 
+\\
+
+Besides performing better than regular NMF, the simple hull method with a topic matrix size of 5,000 performed better than K-nearest neighbors, 2 layered neural nets, 3 layered neural nets~\cite{lecun}, and boosted stumps~\cite{kegl}. Note that the performance of Matlab's NMF peaked at a topic matrix of size 60, and performed badly on large sizes since it overfit the data, so the comparison between the Simple Hull and Matlab NMF method is fair even though the topic sizes are different.
+\\
+
+The convex NMF algorithms outperformed the regular NMF algorithm across sizes, which provides some validation for our theoretical models. Gonz Hull did better than our Push Gonz Hull which suggests that the algorithm we developed did not accurately capture the region represented by the digits but overextended itself to a larger region. However, the following table shows the classification error rate of the algorithms for smaller topic matrices. In this experiment, the first 5000 of the 60,000 training samples were used.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+   Method/Size & 10 & 20 \\ 
+ \hline
+ Matlab NMF & 11.1\% & 9.5\% \\ 
+ \hline
+ Simple Hull & 30.1\% & 21.4\% \\ 
+ \hline
+  Gonz Hull & 24.2\% & 15.5\% \\ 
+ \hline
+  Push Gonz Hull & 23.2\% & 14.6\% \\ 
+ \hline
+\end{tabular}
+\caption{Supervised classification error of NMF algorithms}
+\label{tab:smaller_results}
+\end{table}
+
+For smaller topic matrices (shown in table~\ref{tab:smaller_results}), Push Gonz Hull does better than Gonz Hull. Although the difference in error rates is not statistically significant, it suggests that Push Gonz Hull might perform well on smaller training sets and when we want to use a small number of topics. More experiments should be done to verify this conjecture. The advantage of having a smaller topic matrix is that training and testing are significantly faster. Training and testing for a topic matrix 5 times smaller was at least 10 times faster in our (crude) initial experiments.
+
+\chapter*{Appendix B: Collaboration Details}
+
+This work was done in collaboration with Lin Yang, Harry Lang, and Vladimir Braverman. Since Lin, Harry, and Vova were external collaborators, I will briefly document the benefits I received from this external collaboration. 
+
+\begin{enumerate}
+\item Working with such wonderful collaborators was really useful for my research. Lin and Harry read up drafts of parts of this thesis that I sent them, checked my proofs, and gave me valuable feedback. We also bounced ideas off each other fairly often, and talked about papers we read.
+\item The idea of working on streaming algorithms competitive with OPT was not mine.
+\item It was Lin's idea to work on $(\epsilon, \delta)$-hulls when $\epsilon$-approximate convex hulls were difficult to deal with.
+\item Lin came up with an initial randomized 2D algorithm for $(\epsilon, \delta)$-hulls that used $O(klogk)$ points, where $k$ is OPT$(P, \epsilon)$, and gives a $(\sqrt{\epsilon}, 1/2)$-hull
+\item I suggested the deterministic 2D algorithm that uses $O(k/\delta)$ points and gives an $(\epsilon, \delta)$-hull. However, my original proof was more complicated, and Lin suggested a really clever idea for a simpler proof, which I used in the writeup.
+\item I suggested and proved the higher dimensional algorithm, but used Lin's clever idea in part of my proof for the higher dimensional algorithm.
+\item Note that all writing in this document is mine.
+\end{enumerate}
+
+Of course, Avrim provided invaluable advice throughout the course of this research.
+
+% We recommend abbrvnat bibliography style.
+
+\bibliographystyle{alpha}
+
+% The bibliography should be embedded for final submission.
+
+\bibliography{references}
+
+
+\end{document}

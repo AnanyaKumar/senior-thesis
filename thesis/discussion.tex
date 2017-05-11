@@ -1,0 +1,11 @@
+The aim of this undergraduate thesis was to examine streaming algorithms for $\epsilon$-approximate convex hulls in relation to OPT. We proved some lower bounds for this empirically difficult problem, which should guide future research into related problems. We also devised and proved algorithms for 2 relaxations of the problem: when the points are in 2D and come in a random order, and for $(\epsilon,\delta)$-hulls.
+\\
+
+There is lots of exciting work to be done on this topic. We list some interesting research directions.
+\begin{enumerate}
+\item Examine the connections between $\epsilon$-approximate convex hulls, $(\epsilon, \delta)$-hulls, and matrix factorization in more detail, in particular with experiments to check if the factorizations produced by finding an approximate convex hull are meaningful.
+\item Our random order algorithm does not work in 3D (or higher dimensions). Come up with an algorithm that works in higher dimensions, assuming the points come in random order. Alternatively, come up with a lower bound when the points come in random order.
+\item Our algorithm for $(\epsilon, \delta)$-hulls works in arbitrary dimensions, however it does not scale well with $d$. Our algorithm can only be used when the dimension is low. In fact, all provable streaming algorithms for $\epsilon$-approximate convex hulls, or related problems, do not scale well with $d$. Come up with algorithms for $(\epsilon, \delta)$-hulls, or other interesting relaxations, that work in high dimensions.
+\item We do not have any lower bounds for the 2D $\epsilon$-approximate convex hull problem. We were not able to devise an algorithm that is competitive with OPT for this problem after extensive effort, however there might exist a clever algorithm that solves this problem. Alternatively, we could try proving lower bounds for the 2D problem.
+\item Coming up with algorithms for $\epsilon$-kernels that are competitive with the optimally sized $\epsilon$-kernel of a point set. While $\epsilon$-approximate convex hulls play a key role in finding $\epsilon$-kernels, an algorithm that is competitive with OPT for $\epsilon$-approximate convex hulls might not immediately give an algorithm that is competitive with OPT for $\epsilon$-kernels.
+\end{enumerate} 

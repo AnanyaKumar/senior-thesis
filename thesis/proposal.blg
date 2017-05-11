@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2015)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: proposal.aux
+The style file: alpha.bst
+Database file #1: references.bib
+Repeated entry---line 549 of file references.bib
+ : @inproceedings{kegl
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 566 of file references.bib
+ : @article{lecun
+ :               ,
+I'm skipping whatever remains of this entry
+Warning--empty booktitle in Berry2005
+Warning--can't use both volume and number fields in Berry2005
+Warning--empty publisher in moitramonograph
+You've used 46 entries,
+            2543 wiz_defined-function locations,
+            858 strings with 13468 characters,
+and the built_in function-call counts, 22272 in all, are:
+= -- 2302
+> -- 1020
+< -- 33
++ -- 356
+- -- 353
+* -- 1577
+:= -- 3458
+add.period$ -- 153
+call.type$ -- 46
+change.case$ -- 303
+chr.to.int$ -- 46
+cite$ -- 49
+duplicate$ -- 930
+empty$ -- 1632
+format.name$ -- 405
+if$ -- 4757
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 47
+newline$ -- 233
+num.names$ -- 144
+pop$ -- 291
+preamble$ -- 1
+purify$ -- 351
+quote$ -- 0
+skip$ -- 835
+stack$ -- 0
+substring$ -- 1393
+swap$ -- 265
+text.length$ -- 33
+text.prefix$ -- 8
+top$ -- 0
+type$ -- 360
+warning$ -- 3
+while$ -- 212
+width$ -- 49
+write$ -- 626
+(There were 2 error messages)
